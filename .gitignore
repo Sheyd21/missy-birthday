@@ -1,0 +1,15 @@
+# Don't commit system files
+.DS_Store
+Thumbs.db
+
+# Don't commit IDE files
+.vscode/
+.idea/
+
+# Don't commit OS files
+__pycache__/
+*.pyc
+
+# Don't commit large files (if any)
+*.mp4
+*.mov
