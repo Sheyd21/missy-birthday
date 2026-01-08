@@ -16,6 +16,44 @@ function fixGitHubPaths() {
     }
 }
 
+// Debug: Log all image loading issues
+document.addEventListener('DOMContentLoaded', function() {
+    console.log('Page loaded on:', window.location.hostname);
+
+    // Check if on GitHub Pages
+    if (window.location.hostname.includes('github.io')) {
+        console.log('Running on GitHub Pages - applying fixes');
+
+        // Fix all image paths
+        const images = document.querySelectorAll('img');
+        images.forEach((img, index) => {
+            const originalSrc = img.src;
+
+            // Log each image
+            console.log(`Image ${index}: ${img.alt} -> ${originalSrc}`);
+
+            // Fix on error
+            img.onerror = function() {
+                console.error(`Failed to load: ${originalSrc}`);
+
+                // Try fixing case
+                let newSrc = originalSrc;
+                newSrc = newSrc.replace(/\.JPG$/i, '.jpg');
+                newSrc = newSrc.replace(/\.JPEG$/i, '.jpg');
+
+                if (newSrc !== originalSrc) {
+                    console.log(`Trying: ${newSrc}`);
+                    img.src = newSrc;
+                }
+            };
+
+            img.onload = function() {
+                console.log(`Success: ${originalSrc}`);
+            };
+        });
+    }
+});
+
 // Call this when DOM is loaded
 document.addEventListener('DOMContentLoaded', fixGitHubPaths);
 
