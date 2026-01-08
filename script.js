@@ -1,6 +1,24 @@
 /*********************************
  GLOBAL HELPERS & VARIABLES
 *********************************/
+// Add this at the beginning of your script.js
+function fixGitHubPaths() {
+    // Only run on GitHub Pages
+    if (window.location.hostname.includes('github.io')) {
+        const images = document.querySelectorAll('img');
+        images.forEach(img => {
+            let src = img.src;
+            // Fix case sensitivity
+            src = src.replace(/\.JPG$/i, '.jpg');
+            src = src.replace(/\.JPEG$/i, '.jpg');
+            img.src = src;
+        });
+    }
+}
+
+// Call this when DOM is loaded
+document.addEventListener('DOMContentLoaded', fixGitHubPaths);
+
 
 // Music variable - only birthday music remains
 const birthdayMusic = new Audio("music/Happy Birthday To You.mp3");
